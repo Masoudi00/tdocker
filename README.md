@@ -19,8 +19,19 @@ container on pull requests. Pushes to `main` also publish these image tags:
 
 - `ghcr.io/masoudi00/tdocker:latest`
 - `ghcr.io/masoudi00/tdocker:<commit-sha>`
+- `docker.io/<dockerhub-username>/tdocker:latest`
+- `docker.io/<dockerhub-username>/tdocker:<commit-sha>`
 
 You can also run the workflow manually from the repository's Actions tab.
+
+Docker Hub publishing requires two repository Actions secrets:
+
+- `DOCKERHUB_USERNAME`: your Docker Hub username.
+- `DOCKERHUB_TOKEN`: a Docker Hub personal access token with Read & Write permission.
+
+The workflow reads the username from the secret to choose your Docker Hub
+repository. Missing secrets or invalid credentials cause the publishing step
+to fail. No credentials are committed to the repository.
 
 GitHub automatically supplies `${{ secrets.GITHUB_TOKEN }}` for each run.
 The workflow grants it `packages: write` permission to publish to GitHub
